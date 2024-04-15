@@ -1,0 +1,33 @@
+name: Deploy to Azure CDN
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Azure CLI
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+
+      - name: Azure login
+        run: az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Set subscription
+        run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Upload website files to Azure Storage Account
+        run: az storage blob upload-batch --account-name <your-storage-account-name> --destination \$web --source ./path/to/your/website/files --no-progress
+
+      - name: Configure CDN endpoint
+        run: |
+          az cdn endpoint create --name <endpoint-name> --profile-name <cdn-profile-name> --origin <your-storage-account-blob-endpoint> --origin-host-header <your-storage-account-blob-endpoint> --resource-group <resource-group-name> --cdn-type Standard_Verizon
+
