@@ -25,9 +25,9 @@ jobs:
         run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Upload website files to Azure Storage Account
-        run: az storage blob upload-batch --account-name <your-storage-account-name> --destination \$web --source ./path/to/your/website/files --no-progress
+        run: az storage blob upload-batch --account-name storageforcicdobject --destination \$web --source "C:/Users/DELL/OneDrive/Desktop/VirtueCloud/Azure-task/" --no-progress
 
       - name: Configure CDN endpoint
         run: |
-          az cdn endpoint create --name <endpoint-name> --profile-name <cdn-profile-name> --origin <your-storage-account-blob-endpoint> --origin-host-header <your-storage-account-blob-endpoint> --resource-group <resource-group-name> --cdn-type Standard_Verizon
+          az cdn endpoint create --name Cdn-endpoint-name1cicd --profile-name CDN-profile1forcicd --origin storageforcicdobject.z13.web.core.windows.net --origin-host-header storageforcicdobject.z13.web.core.windows.net --resource-group ankit-resource-group --cdn-type Standard_Verizon
 
