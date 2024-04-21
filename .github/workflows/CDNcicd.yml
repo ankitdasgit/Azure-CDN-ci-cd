@@ -12,10 +12,10 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3azure/CLI@v1
 
       - name: Install Azure CLI
-        uses: AzureCLI@1
+        uses: azure/CLI@v1
         with:
           azcliversion: latest
 
