@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Azure CLI
-        uses: azure/CLI@v1
+        uses: AzureCLI@1
         with:
           azcliversion: latest
 
