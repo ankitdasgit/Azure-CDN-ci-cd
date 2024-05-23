@@ -1,4 +1,4 @@
-                                                                    CI/CD for Azure CDN 
+                                                             CI/CD for Azure CDN 
                                                                     
 
 
